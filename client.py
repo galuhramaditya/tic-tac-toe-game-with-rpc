@@ -99,6 +99,8 @@ if not server.isFull():
 
     try:
         game.play()
+
+        print("\n"*100)
         game.printWinner()
 
         time.sleep(3)
