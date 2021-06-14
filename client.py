@@ -26,8 +26,7 @@ class Game:
                 if len(pawn) == 1:
                     break
             else:
-                pawn = input(
-                    f"type pawn ({unavailablePawn} is not available) : ")
+                pawn = input(f"type pawn ({unavailablePawn} is not available) : ")
                 if len(pawn) == 1 and pawn != unavailablePawn:
                     break
 
@@ -35,10 +34,8 @@ class Game:
         self.my_index = self.server.login(pawn)
 
     def waitingForEnemy(self):
-        while True:
+        while not self.server.isFull():
             print("waiting for enemy...")
-            if self.server.isFull():
-                break
             time.sleep(1)
 
         self.enemy_pawn = self.server.getEnemyPawn(self.my_index)
@@ -56,7 +53,7 @@ class Game:
     def play(self):
         while not self.server.dataIsFull() and not self.server.isThereWinner() and not server.isThereAfk():
             if self.server.isMyTurn(self.my_index):
-                print("\n"*10)
+                print("\n"*100)
                 self.board()
                 print("=======================")
 
@@ -84,6 +81,9 @@ class Game:
             print("=======================")
 
     def printWinner(self):
+        self.board()
+        print("=======================")
+        
         if self.server.isThereWinner():
             if self.server.isWin(self.my_index):
                 print("!!!...VICTORY...!!!")
@@ -94,7 +94,7 @@ class Game:
 
 
 if not server.isFull():
-    print("\n"*10)
+    print("\n"*100)
     game = Game(server)
 
     try:
